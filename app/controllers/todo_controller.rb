@@ -1,4 +1,6 @@
 class TodoController < ApplicationController
+  before_action :set_note, only: [:create]
+
   def index
     @todos = Todo.all.where(deleted_at: nil)
 
@@ -14,13 +16,14 @@ class TodoController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(todo_params)
-    
+    @todo = @note.todos.build(todo_params)
+    @todo.note_id = @note.id 
+  
     if @todo.save
-      return render json: @todo
+      return render json: @todo, status: :created
     end
     
-    render json: { error: "Unable to create todo" }
+    render json: { error: @todo.errors.full_messages }, status: :unprocessable_entity
   end
 
   def update
@@ -45,6 +48,12 @@ class TodoController < ApplicationController
   end
 
   private
+  
+  def set_note
+    @note = Note.find(params[:note_id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Note not found" }, status: :not_found
+  end
 
   def todo_params
     params.require(:todo).permit(:title, :done, :deleted_at)

@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   
   scope '/api/v1' do
-    resources :todo
+    resources :note do
+      resources :todo
+    end
   end
 
-  root "todo#index"
+  root "note#index"
 end
