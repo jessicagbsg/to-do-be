@@ -21,40 +21,11 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # todo queries
-    field :todos, [Types::TodoType], null: false do
-      description "Retrieve all todos"
-    end
+    # Notes
+    field :notes, resolver: Resolvers::Notes::FetchAll
+    field :note, resolver: Resolvers::Notes::FetchById
 
-    field :todo, Types::TodoType, null: true do
-      description "Retrieve a specific todo by ID"
-      argument :id, ID, required: true
-    end
-
-    def todos
-      Todo.all
-    end
-
-    def todo(id:)
-      Todo.find_by(id: id)
-    end
-
-    # note queries
-    field :notes, [Types::NoteType], null: false do
-      description "Retrieve all notes"
-    end
-
-    field :note, Types::NoteType, null: true do
-      description "Retrieve a specific note by ID"
-      argument :id, ID, required: true
-    end
-
-    def notes
-      Note.all
-    end
-
-    def note(id:)
-      Note.find_by(id: id)
-    end
+    # Todos
+    field :todos, resolver: Resolvers::Todos::FetchAll
   end
 end

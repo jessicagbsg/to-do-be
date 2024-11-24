@@ -1,6 +1,6 @@
 class NoteController < ApplicationController
   def index
-    @notes = Note.all.where(deleted_at: nil)
+    @notes = NoteService.fetch_all
 
     if @notes.empty?
       return render json: { message: "No notes found" }
@@ -10,9 +10,9 @@ class NoteController < ApplicationController
   end
 
   def create
-    @note = Note.new(note_params)
+    @note = NoteService.create(note_params)
 
-    if @note.save
+    if @note.persisted?
       return render json: @note
     end
 
@@ -20,9 +20,9 @@ class NoteController < ApplicationController
   end
 
   def update
-    @note = Note.find(params[:id])
+    @note = NoteService.find_by_id(params[:id])
 
-    if @note.deleted_at.nil? && @note.update(note_params)
+    if @note&.deleted_at.nil? && NoteService.update(@note, note_params)
       return render json: @note
     end
 
@@ -30,10 +30,9 @@ class NoteController < ApplicationController
   end
 
   def destroy
-    @note = Note.find(params[:id])
+    @note = NoteService.find_by_id(params[:id])
 
-    if @note
-      @note.update(deleted_at: Time.now)
+    if @note && NoteService.soft_delete(@note)
       return render json: { message: "Note deleted successfully" }
     end
 

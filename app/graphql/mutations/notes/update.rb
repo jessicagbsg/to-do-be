@@ -2,16 +2,16 @@
 
 module Mutations
   module Notes
-    class Create < BaseMutation
+    class Update < BaseMutation
       argument :title, String, required: true
 
       field :note, Types::NoteType, null: true
       field :errors, [String], null: false
 
       def resolve(title:)
-        note = Note.new(title: title)
-        if note.save
-          { note: note, errors: [] }
+        note = Note.find_by(id: id)
+        if note.update(title: title)
+          { note: note }
         else
           { note: nil, errors: note.errors.full_messages }
         end

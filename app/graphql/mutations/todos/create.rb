@@ -2,18 +2,19 @@
 
 module Mutations
   module Todos
-    class Update < BaseMutation
+    class Create < BaseMutation
       argument :title, String, required: true
       argument :done, Boolean, required: false
-      argument :deleted_at, GraphQL::Types::ISO8601DateTime, required: false
+      argument :note_id, ID, required: true
 
       field :todo, Types::TodoType, null: true
       field :errors, [String], null: false
 
-      def resolve(title:, done: false, deleted_at: nil)
-        todo = Todo.find_by(id: id)
-        if todo.update(title: title, done: done, deleted_at: deleted_at)
-          { todo: todo, errors: [] }
+      def resolve(title:, done: false, note_id:)
+        note = Note.find(note_id)
+        todo = note.todos.create(title: title, done: done)
+        if todo.save
+          { todo: todo }
         else
           { todo: nil, errors: todo.errors.full_messages }
         end
