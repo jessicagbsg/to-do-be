@@ -13,7 +13,7 @@ module Mutations
       def resolve(title:, done: false, note_id:)
         note = Note.find(note_id)
         todo = note.todos.create(title: title, done: done)
-        if todo.save
+        if todo.persisted? 
           { todo: todo, errors: [] }
         else
           { todo: nil, errors: todo.errors.full_messages }
