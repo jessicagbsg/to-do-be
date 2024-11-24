@@ -14,7 +14,7 @@ module Mutations
         note = Note.find(note_id)
         todo = note.todos.create(title: title, done: done)
         if todo.save
-          { todo: todo }
+          { todo: todo, errors: [] }
         else
           { todo: nil, errors: todo.errors.full_messages }
         end

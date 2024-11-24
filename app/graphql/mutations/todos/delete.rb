@@ -2,24 +2,20 @@
 
 module Mutations
   module Todos
-    class Update < BaseMutation
+    class Delete < BaseMutation
       argument :id, ID, required: true
-      argument :title, String, required: false
-      argument :done, Boolean, required: false
 
       field :todo, Types::TodoType, null: true
       field :errors, [String], null: false
 
-      def resolve(id:, title: nil, done: nil)
+      def resolve(id:)
         todo = Todo.find_by(id: id)
       
         if todo.nil?
           return { todo: nil, errors: ["Todo not found"] }
         end
       
-        update_params = { title: title, done: done }.compact
-      
-        if todo.update(update_params)
+        if todo.update(deleted_at: Time.now)
           { todo: todo, errors: [] }
         else
           { todo: nil, errors: todo.errors.full_messages }

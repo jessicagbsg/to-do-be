@@ -4,7 +4,7 @@ class NoteService
   end
 
   def self.find_by_id(id)
-    Note.find_by(i: idd)
+    Note.find_by(id: id, deleted_at: nil)
   end
 
   def self.create(attributes)

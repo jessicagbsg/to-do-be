@@ -10,8 +10,13 @@ module Mutations
 
       def resolve(title:)
         note = Note.find_by(id: id)
+
+        if note.nil?
+          return { note: nil, errors: ["Note not found"] }
+        end
+
         if note.update(title: title)
-          { note: note }
+          { note: note, errors: [] }
         else
           { note: nil, errors: note.errors.full_messages }
         end
