@@ -68,6 +68,9 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+          
+      - name: Clear Rails cache
+        run: bin/rails tmp:cache:clear
 
       - name: Run tests
         env:
