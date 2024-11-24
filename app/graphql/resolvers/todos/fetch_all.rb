@@ -3,7 +3,7 @@
 module Resolvers
   module Todos
     class FetchAll < BaseResolver
-      type [Types::TodoType], null: false
+      type [ Types::TodoType ], null: false
 
       description "Fetch all todos"
 

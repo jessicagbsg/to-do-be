@@ -7,13 +7,13 @@ module Mutations
       argument :title, String, required: true
 
       field :note, Types::NoteType, null: true
-      field :errors, [String], null: false
+      field :errors, [ String ], null: false
 
       def resolve(id:, title:)
         note = Note.find_by(id: id, deleted_at: nil)
 
         if note.nil?
-          return { note: nil, errors: ["Note not found"] }
+          return { note: nil, errors: [ "Note not found" ] }
         end
 
         if note.update(title: title)

@@ -3,7 +3,7 @@
 module Resolvers
   module Notes
     class FetchAll < BaseResolver
-      type [Types::NoteType], null: false
+      type [ Types::NoteType ], null: false
 
       description "Fetch all notes"
 

@@ -6,7 +6,7 @@ module Mutations
       argument :title, String, required: true
 
       field :note, Types::NoteType, null: true
-      field :errors, [String], null: false
+      field :errors, [ String ], null: false
 
       def resolve(title:)
         note = Note.new(title: title)

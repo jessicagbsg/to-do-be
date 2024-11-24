@@ -1,5 +1,5 @@
 class TodoController < ApplicationController
-  before_action :set_note, only: [:create]
+  before_action :set_note, only: [ :create ]
 
   def index
     @todos = TodoService.fetch_all(note_id: params[:note_id], done: params[:done])

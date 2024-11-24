@@ -8,12 +8,12 @@ module Mutations
       argument :note_id, ID, required: true
 
       field :todo, Types::TodoType, null: true
-      field :errors, [String], null: false
+      field :errors, [ String ], null: false
 
       def resolve(title:, done: false, note_id:)
         note = Note.find(note_id)
         todo = note.todos.create(title: title, done: done)
-        if todo.persisted? 
+        if todo.persisted?
           { todo: todo, errors: [] }
         else
           { todo: nil, errors: todo.errors.full_messages }
