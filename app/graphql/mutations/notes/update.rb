@@ -3,13 +3,14 @@
 module Mutations
   module Notes
     class Update < BaseMutation
+      argument :id, ID, required: true
       argument :title, String, required: true
 
       field :note, Types::NoteType, null: true
       field :errors, [String], null: false
 
-      def resolve(title:)
-        note = Note.find_by(id: id)
+      def resolve(id:, title:)
+        note = Note.find_by(id: id, deleted_at: nil)
 
         if note.nil?
           return { note: nil, errors: ["Note not found"] }
