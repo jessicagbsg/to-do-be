@@ -6,6 +6,7 @@ gem "puma", ">= 5.0"
 gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "graphql", "~> 2.4"
+gem "rack-cors"
 
 gem "graphiql-rails", "~> 1.10", group: :development
 
