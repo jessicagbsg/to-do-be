@@ -7,8 +7,10 @@ module Resolvers
 
       description "Fetch all notes"
 
-      def resolve
-        NoteService.fetch_all
+      argument :title, String, required: false
+
+      def resolve(title: nil)
+        NoteService.fetch_all(title: title)
       end
     end
   end
