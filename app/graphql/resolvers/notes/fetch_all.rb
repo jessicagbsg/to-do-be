@@ -10,7 +10,7 @@ module Resolvers
       argument :title, String, required: false
 
       def resolve(title: nil)
-        NoteService.fetch_all(title: title)
+        NoteService.fetch_all(title: title).order(created_at: :asc)
       end
     end
   end
