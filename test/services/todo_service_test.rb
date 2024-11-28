@@ -28,7 +28,7 @@ class TodoServiceTest < Minitest::Test
     assert_equal 1, not_done_todos.count, "Expected only not-done todos to be fetched."
   end
 
-  def create
+  def test_create
     attributes = { title: "New Todo", done: false }
     todo = TodoService.create(@note, attributes)
     assert todo.persisted?
