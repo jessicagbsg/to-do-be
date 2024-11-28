@@ -1,24 +1,33 @@
-# README
+# To do Back End
+ 
+## Goal
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was desienged to implement to do list app.
 
-Things you may want to cover:
 
-* Ruby version
+## Layout
 
-* System dependencies
+Go to [to-do-app](https://to-do-fe-taupe.vercel.app) to see the layout and interact with the application. 
 
-* Configuration
 
-* Database creation
+# Tools Used
 
-* Database initialization
+* ``Ruby on Rails``
+* ``GraphQl``
+* ``Minitest`` 
+* ``FactoryBot``
+* ``Postgresql``
+* ``Docker``
+* ``Docker Compose``
+* ``Render``
 
-* How to run the test suite
+# Instructions - Running the project
 
-* Services (job queues, cache servers, search engines, etc.)
+To run the project and use it you just have to clone the project, open in your prefered editor, run `docker-compose up --build` 
 
-* Deployment instructions
+# Author
+LinkedIn:
+https://www.linkedin.com/in/jessicagondim/
 
-* ...
+E-mail:
+jessicagbsg@gmail.com
